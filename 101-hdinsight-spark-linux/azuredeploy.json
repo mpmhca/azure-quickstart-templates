@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "clusterName": {
@@ -64,7 +64,7 @@
       "type": "Microsoft.HDInsight/clusters",
       "name": "[parameters('clusterName')]",
       "location": "[parameters('location')]",
-      "apiVersion": "2015-03-01-preview",
+      "apiVersion": "2018-06-01-preview",
       "dependsOn": [
         "[concat('Microsoft.Storage/storageAccounts/',variables('defaultStorageAccount').name)]"
       ],
@@ -97,7 +97,7 @@
           "roles": [
             {
               "name": "headnode",
-              "targetInstanceCount": "2",
+              "targetInstanceCount": 2,
               "hardwareProfile": {
                 "vmSize": "Standard_D12_v2"
               },
@@ -112,7 +112,7 @@
             },
             {
               "name": "workernode",
-              "targetInstanceCount": "2",
+              "targetInstanceCount": 2,
               "hardwareProfile": {
                 "vmSize": "Standard_D13_v2"
               },

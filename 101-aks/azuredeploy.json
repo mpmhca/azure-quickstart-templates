@@ -1,8 +1,8 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
     "parameters": {
-        "resourceName": {
+        "clusterName": {
             "type": "string",
             "defaultValue":"aks101cluster",
             "metadata": {
@@ -42,7 +42,7 @@
         },
         "agentVMSize": {
             "type": "string",
-            "defaultValue": "Standard_D2_v2",
+            "defaultValue": "Standard_DS2_v2",
             "metadata": {
                 "description": "The size of the Virtual Machine."
             }
@@ -80,35 +80,15 @@
             "metadata": {
                 "description": "The type of operating system."
             }
-        },
-        "kubernetesVersion": {
-            "type": "string",
-            "defaultValue": "1.11.3",
-            "allowedValues": [
-                "1.7.15",
-                "1.7.16",
-                "1.8.14",
-                "1.8.15",
-                "1.9.9",
-                "1.9.10",
-                "1.10.7",
-                "1.10.8",
-                "1.11.2",
-                "1.11.3"
-            ],
-            "metadata": {
-                "description": "The version of Kubernetes."
-            }
-        }
+        }        
     },
     "resources": [
         {
-            "apiVersion": "2017-08-31",
+            "apiVersion": "2020-03-01",
             "type": "Microsoft.ContainerService/managedClusters",
             "location": "[parameters('location')]",
-            "name": "[parameters('resourceName')]",
+            "name": "[parameters('clusterName')]",
             "properties": {
-                "kubernetesVersion": "[parameters('kubernetesVersion')]",
                 "dnsPrefix": "[parameters('dnsPrefix')]",
                 "agentPoolProfiles": [
                     {
@@ -131,7 +111,7 @@
                     }
                 },
                 "servicePrincipalProfile": {
-                    "ClientId": "[parameters('servicePrincipalClientId')]",
+                    "clientId": "[parameters('servicePrincipalClientId')]",
                     "Secret": "[parameters('servicePrincipalClientSecret')]"
                 }
             }
@@ -140,7 +120,7 @@
     "outputs": {
         "controlPlaneFQDN": {
             "type": "string",
-            "value": "[reference(parameters('resourceName')).fqdn]"
+            "value": "[reference(parameters('clusterName')).fqdn]"
         }
     }
 }
