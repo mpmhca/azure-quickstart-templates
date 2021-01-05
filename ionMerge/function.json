@@ -1,0 +1,18 @@
+{
+  "bindings": [
+    {
+      "name": "Timer",
+      "type": "timerTrigger",
+      "direction": "in",
+      "schedule": "0 0 4 * * *",
+      "runOnStartup" : false
+    },
+    {
+      "name": "combinedData",
+      "type": "blob",
+      "path": "idlprd/EmployeeAddressCombined.csv",
+      "connection": "ionOutputStorage",
+      "direction": "out"  
+    }
+  ]
+}
